@@ -1,0 +1,6 @@
+{
+    "board": "arduino:avr:nano",
+    "sketch": "ws2812\\simpleLed\\simpleLed.ino",
+    "port": "COM5",
+    "configuration": "cpu=atmega168"
+}

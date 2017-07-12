@@ -15,22 +15,22 @@ void setup() {
 }
 
 void loop() {
-    colorChange(pixels.Color(255,0,0),0);
-    colorChange(pixels.Color(0,255,0),1);
-    colorChange(pixels.Color(0,0,255),2);
-    delay(1000);
-    colorChange(pixels.Color(255,0,0),2);
-    colorChange(pixels.Color(0,255,0),0);
-    colorChange(pixels.Color(0,0,255),1);
-    delay(1000);
-    colorChange(pixels.Color(255,255,255),0);
-    colorChange(pixels.Color(255,255,255),1);
-    colorChange(pixels.Color(255,255,255),2);
-    delay(1000);
+    blinkAll(10,35,200,1000);
 
 }
 
 void colorChange(uint32_t c, int pix) {
     pixels.setPixelColor(pix, c);
     pixels.show();
+}
+
+void blinkAll(int r,int g, int b, int time) {
+    for (int i=0;i<NUMPIXELS;i++){
+        colorChange(pixels.Color(r,g,b),i);
+    }
+    delay(time);
+    for (int i=0;i<NUMPIXELS;i++){
+        colorChange(pixels.Color(0,0,0),i);
+    }
+    delay(time);
 }
