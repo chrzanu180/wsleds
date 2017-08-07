@@ -6,31 +6,64 @@
 // How many NeoPixels are attached to the Arduino?
 #define NUMPIXELS      3
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_RGB + NEO_KHZ800); //pamietac zmienic
 
 int delayval = 500; // delay for half a second
-
+int brightness = 5;
 void setup() {
   pixels.begin(); // This initializes the NeoPixel library.
 }
 
 void loop() {
-    blinkAll(10,35,200,1000);
+    Serial.begin(57600);
+    if (Serial.read()=='k'){
+        
+        Serial.println("k: started");
+        blinkAll(255,255,255,1000);
+        Serial.println("k: done");
+    }
+    else if (Serial.read()=='b'){
+
+    }
+    else{
+        stdBlink(3);
+    }
+
+    
 
 }
 
-void colorChange(uint32_t c, int pix) {
-    pixels.setPixelColor(pix, c);
+void colorChange(int r,int g, int b, int pix) {
+    pixels.setPixelColor(pix, pixels.Color(r/brightness,g/brightness,b/brightness));
     pixels.show();
 }
 
+void  allOff(){
+    for (int i=0;i<NUMPIXELS;i++){
+        colorChange(0,0,0,i);
+    }
+}
+
+void stdBlink(int x){
+    colorChange(0,255,0, 0);
+    colorChange(255,0,0, 1);
+    
+    for (int i=0;i<x;i++){
+    colorChange(255,255,255, 2);
+    delay(50);
+    colorChange(0,0,0,2);
+    delay(50);
+    }
+    delay(900);
+
+}
+
+
 void blinkAll(int r,int g, int b, int time) {
     for (int i=0;i<NUMPIXELS;i++){
-        colorChange(pixels.Color(r,g,b),i);
+        colorChange(r,g,b,i);
     }
     delay(time);
-    for (int i=0;i<NUMPIXELS;i++){
-        colorChange(pixels.Color(0,0,0),i);
-    }
+    allOff();
     delay(time);
 }
