@@ -4,7 +4,11 @@
             "name": "Win32",
             "includePath": [
                 "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
-                "${workspaceRoot}"
+                "${workspaceRoot}",
+                "C:\\Users\\ekachrz\\AppData\\Local\\Arduino15\\packages\\digistump\\hardware\\avr\\1.6.7\\cores\\license.txt",
+                "C:\\Users\\ekachrz\\AppData\\Local\\Arduino15\\packages\\digistump\\hardware\\avr\\1.6.7\\cores\\pro",
+                "C:\\Users\\ekachrz\\AppData\\Local\\Arduino15\\packages\\digistump\\hardware\\avr\\1.6.7\\cores\\tiny",
+                "C:\\Users\\ekachrz\\AppData\\Local\\Arduino15\\packages\\arduino\\hardware\\avr\\1.6.18\\cores\\arduino"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,

@@ -1,21 +1,22 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#define PIN            6
+#define PIN            0
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS      3
+#define NUMPIXELS      16
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_RGB + NEO_KHZ800); //pamietac zmienic
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800); //pamietac zmienic
 
 int delayval = 500; // delay for half a second
 int brightness = 5;
 void setup() {
-  pixels.begin(); // This initializes the NeoPixel library.
+    pinMode(2, INPUT);
+    pixels.begin(); // This initializes the NeoPixel library.
 }
 
 void loop() {
-    Serial.begin(57600);
+    /*Serial.begin(57600);
     if (Serial.read()=='k'){
         
         Serial.println("k: started");
@@ -26,8 +27,26 @@ void loop() {
 
     }
     else{
-        stdBlink(3);
+        
+    }*/
+
+    if (digitalRead(2)==HIGH){
+      stdBlink(3);
     }
+    else{
+    for (int i =0;i<5;i++){
+      blinkAll(50,0,0,100);
+    }
+
+    for (int i =0;i<5;i++){
+      blinkAll(0,50,0,100);
+    }
+
+    for (int i =0;i<5;i++){
+      blinkAll(0,0,50,100);
+    }  
+    }
+    
 
     
 
