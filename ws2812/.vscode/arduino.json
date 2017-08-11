@@ -1,5 +1,6 @@
 {
-    "board": "digistump:avr:digispark-tiny",
-    "port": "COM6",
-    "sketch": "simpleLed\\simpleLed.ino"
+    "board": "arduino:avr:nano",
+    "port": "COM10",
+    "sketch": "simpleLed\\simpleLed.ino",
+    "configuration": "cpu=atmega168"
 }

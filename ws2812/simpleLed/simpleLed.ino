@@ -1,55 +1,72 @@
 
 #include <Adafruit_NeoPixel.h>
 
-#define PIN            0
+#define outPin 6
+#define motPin 4
+#define gpsPin 3
+#define armPin 2
+
+unsigned long duration;
 
 // How many NeoPixels are attached to the Arduino?
-#define NUMPIXELS      16
+#define NUMPIXELS      3
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800); //pamietac zmienic
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, outPin, NEO_RGB + NEO_KHZ800); //pamietac zmienic na GRB/RGB
 
-int delayval = 500; // delay for half a second
+int delayval = 500;
 int brightness = 5;
 void setup() {
+    pinMode(4, INPUT);
+    pinMode(3, INPUT);
     pinMode(2, INPUT);
     pixels.begin(); // This initializes the NeoPixel library.
+    Serial.begin(9600);
 }
 
 void loop() {
-    /*Serial.begin(57600);
-    if (Serial.read()=='k'){
-        
-        Serial.println("k: started");
-        blinkAll(255,255,255,1000);
-        Serial.println("k: done");
-    }
-    else if (Serial.read()=='b'){
 
+    //stdNav(3);
+    if (armPin == HIGH){
+        colorChange(0,255,0,2);
+        Serial.print("armPin");
     }
+    else {
+        colorChange(0,0,0,2);
+    }
+//blinkAll(100,100,100,100);
+/*
+    duration = pulseIn(motPin, LOW,2000000);
+    if (duration < 200000){
+        stdNav(3);
+        Serial.println(duration); //debug
+    }
+
     else{
         
-    }*/
 
-    if (digitalRead(2)==HIGH){
-      stdBlink(3);
+    if (motPin == HIGH){
+        colorChange(255,0,0,0);
+        
     }
-    else{
-    for (int i =0;i<5;i++){
-      blinkAll(50,0,0,100);
+    else {
+        colorChange(0,0,0,0);
     }
-
-    for (int i =0;i<5;i++){
-      blinkAll(0,50,0,100);
+    if (gpsPin == HIGH){
+        colorChange(0,0,255,1);
     }
-
-    for (int i =0;i<5;i++){
-      blinkAll(0,0,50,100);
-    }  
+    else {
+        colorChange(0,0,0,1);
     }
+    if (armPin == HIGH){
+        colorChange(0,255,0,2);
+        Serial.print("armPin");
+    }
+    else {
+        colorChange(0,0,0,2);
+    }
+    }
+    */
     
-
-    
-
 }
 
 void colorChange(int r,int g, int b, int pix) {
@@ -63,7 +80,7 @@ void  allOff(){
     }
 }
 
-void stdBlink(int x){
+void stdNav(int x){
     colorChange(0,255,0, 0);
     colorChange(255,0,0, 1);
     
