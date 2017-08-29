@@ -1,6 +1,5 @@
 {
-    "board": "arduino:avr:nano",
-    "port": "COM10",
-    "sketch": "simpleLed\\simpleLed.ino",
-    "configuration": "cpu=atmega168"
+    "board": "arduino:avr:uno",
+    "port": "COM15",
+    "sketch": "simpleLed\\simpleLed.ino"
 }
