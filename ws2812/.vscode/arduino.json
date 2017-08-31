@@ -1,5 +1,5 @@
 {
-    "board": "arduino:avr:uno",
-    "port": "COM15",
+    "board": "digistump:avr:digispark-tiny",
+    "port": "COM4",
     "sketch": "simpleLed\\simpleLed.ino"
 }

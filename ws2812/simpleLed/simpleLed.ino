@@ -1,20 +1,18 @@
 #include <Adafruit_NeoPixel.h>
 
-#define navPin  6
-#define statPin 5
+#define navPin  0
+#define statPin 1
 #define motPin  4
 #define gpsPin  3
 #define armPin  2
 #define NAVPIXELS      3
 #define STATPIXELS     12
-
-unsigned long duration;
-const long interval = 800;
-unsigned long prevMillis = 0;
+int counter =0;
+unsigned long tmr0;
 
 int ledState = LOW;
 
-Adafruit_NeoPixel navLeds = Adafruit_NeoPixel(NAVPIXELS, navPin, NEO_RGB + NEO_KHZ800); //pamietac zmienic na GRB/RGB
+Adafruit_NeoPixel  navLeds = Adafruit_NeoPixel(NAVPIXELS, navPin, NEO_RGB + NEO_KHZ800);
 Adafruit_NeoPixel statLeds = Adafruit_NeoPixel(STATPIXELS, statPin, NEO_GRB + NEO_KHZ800);
 
 //int delayval = 500;
@@ -25,97 +23,37 @@ void setup() {
     pinMode(2, INPUT);
     navLeds.begin();
     statLeds.begin();
-    
     statColor(255,255,255,0);
-    delay(1000);
+    delay(100);
     Serial.begin(57600);
 }
 
 void loop() {
-int timerOn = 0;
-/*unsigned long currMillis = millis();
-if (currMillis - prevMillis >= 800){
-    prevMillis = currMillis;
-    if (ledState == LOW) {
-      ledState = HIGH;
-    } else {
-      ledState = LOW;
-    }
+stdNav(3);
+//statRing();
 
-    digitalWrite(13,ledState);
 }
-*/
-if (millis()%1000==0){Serial.println(millis());}
-//digitalWrite(13,ledState);
-
-//stdNav(3);
-
-    for (int i = 0; i<STATPIXELS;i++){
-        //statColor(255,255,255,i-1);
+void statRing(){
+for (int i = 0; i<STATPIXELS;i++){
+    if (counter%100==0){
         for (int j = 0;j<4;j++){
             int x=0;
             if (i+j>12){x = -13;}
-            statColor(255,0,0,i+j+x);
+            statColor(180,0,100,i+j+x);
         }
         for (int j = 0;j<4;j++){
             int x=0;
             if (i+j+4>12){x = -12;}
-            statColor(0,255,0,i+j+3+x);
+            statColor(100,180,0,i+j+3+x);
         }
         for (int j = 0;j<4;j++){
             int x=0;
             if (i+j+8>12){x = -12;}
-            statColor(0,0,255,i+j+7+x);
+            statColor(0,100,180,i+j+7+x);
         }
-        
-        
-        delay(70);
-        
     }
-
-    /*;
-    if (armPin == HIGH){
-        navColor(0,255,0,2);
-        Serial.print("armPin");
+    Serial.println(counter);     
     }
-    else {
-        navColor(0,0,0,2);
-    }
-//blinkAll(100,100,100,100);
-
-    duration = pulseIn(motPin, LOW,2000000);
-    if (duration < 200000){
-        stdNav(3);
-        Serial.println(duration); //debug
-    }
-
-    else{
-        
-
-    if (motPin == HIGH){
-        navColor(255,0,0,0);
-        
-    }
-    else {
-        navColor(0,0,0,0);
-    }
-    if (gpsPin == HIGH){
-        navColor(0,0,255,1);
-    }
-    else {
-        navColor(0,0,0,1);
-    }
-    if (armPin == HIGH){
-        navColor(0,255,0,2);
-        Serial.print("armPin");
-    }
-    else {
-        navColor(0,0,0,2);
-    }
-    }
-    */
-
-    
 }
 
 void navColor(int r,int g, int b, int pix) {
@@ -137,17 +75,19 @@ void  allOff(){
 }
 
 void stdNav(int x){
-    navColor(0,255,0, 0);
-    navColor(255,0,0, 1);
+navColor(0,255,0, 0);
+navColor(255,0,0, 1);
+
+//if(counter%200==0){
     
     for (int i=0;i<x;i++){
-    navColor(255,255,255, 2);
-    delay(50);
-    navColor(0,0,0,2);
-    delay(50);
-    }
-    delay(900);
-
+        navColor(255,255,255, 2);
+        delay(50);
+        navColor(0,0,0,2);
+        delay(50);
+        }
+        delay(900);
+    //}
 }
 
 
